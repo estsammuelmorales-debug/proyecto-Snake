@@ -10,7 +10,7 @@ public class Serpiente {
         cuerpo = new Cola();
         direccion = 'D';
 
-        // cuerpo inicial (3 segmentos)
+        
         cuerpo.encolar(3, 5);
         cuerpo.encolar(4, 5);
         cuerpo.encolar(5, 5);

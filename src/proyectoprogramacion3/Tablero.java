@@ -5,16 +5,16 @@ package proyectoprogramacion3;
 public class Tablero {
     private int ancho;
     private int alto;
-    private String estado;
     private Serpiente serpiente;
     private Comida comida;
+    private String estado;
 
     public Tablero(int ancho, int alto) {
         this.ancho = ancho;
         this.alto = alto;
-        estado = "Jugando";
         serpiente = new Serpiente();
         comida = new Comida();
+        estado = "Jugando";
     }
 
     public void actualizar() {
@@ -31,21 +31,60 @@ public class Tablero {
     }
 
     public boolean verificarComida() {
-        return serpiente.getX() == comida.getX() &&
-               serpiente.getY() == comida.getY();
+        Nodo cabeza = serpiente.getCabeza();
+        return cabeza.getX() == comida.getX() &&
+               cabeza.getY() == comida.getY();
     }
 
     public boolean verificarColision() {
-        if (serpiente.getX() < 0 || serpiente.getX() >= ancho ||
-            serpiente.getY() < 0 || serpiente.getY() >= alto) {
+        Nodo cabeza = serpiente.getCabeza();
+
+        if (cabeza.getX() < 0 || cabeza.getX() >= ancho ||
+            cabeza.getY() < 0 || cabeza.getY() >= alto) {
             return true;
         }
-        return false;
+
+        return serpiente.colisionPropia();
     }
 
     public String dibujar() {
-        return "Serpiente: " + serpiente.getPosicion() +
-               " Comida: " + comida.getPosicion() +
-               " Estado: " + estado;
+        String texto = "";
+
+        for (int i = 0; i < alto; i++) {
+            for (int j = 0; j < ancho; j++) {
+
+                boolean esCuerpo = false;
+                Nodo actual = serpiente.getCuerpo().getFrente();
+
+                while (actual != null) {
+                    if (actual.getX() == j && actual.getY() == i) {
+                        texto += "S ";
+                        esCuerpo = true;
+                        break;
+                    }
+                    actual = actual.getSiguiente();
+                }
+
+                if (!esCuerpo) {
+                    if (j == comida.getX() && i == comida.getY()) {
+                        texto += "C ";
+                    } else {
+                        texto += ". ";
+                    }
+                }
+            }
+            texto += "\n";
+        }
+
+        texto += "Estado: " + estado;
+        return texto;
+    }
+
+    public String getEstado() {
+        return estado;
+    }
+
+    public Serpiente getSerpiente() {
+        return serpiente;
     }
 }

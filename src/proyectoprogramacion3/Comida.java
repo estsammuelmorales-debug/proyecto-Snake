@@ -3,27 +3,22 @@ package proyectoprogramacion3;
 
 
 public class Comida {
-    private int posicionX;
-    private int posicionY;
+    private int x;
+    private int y;
 
     public Comida() {
         generar(10, 10);
     }
 
     public void generar(int ancho, int alto) {
-        posicionX = (int)(Math.random() * ancho);
-        posicionY = (int)(Math.random() * alto);
+        x = (int)(Math.random() * ancho);
+        y = (int)(Math.random() * alto);
     }
 
-    public String getPosicion() {
-        return "(" + posicionX + "," + posicionY + ")";
+    public int getX() { 
+        return x; 
     }
-
-    public int getX() {
-        return posicionX;
-    }
-
-    public int getY() {
-        return posicionY;
+    public int getY() { 
+        return y; 
     }
 }

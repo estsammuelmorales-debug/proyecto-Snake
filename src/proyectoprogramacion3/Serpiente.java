@@ -3,52 +3,62 @@ package proyectoprogramacion3;
 
 
 public class Serpiente {
-    private int cabezaX;
-    private int cabezaY;
+    private Cola cuerpo;
     private char direccion;
-    private int longitud;
 
     public Serpiente() {
-        cabezaX = 5;
-        cabezaY = 5;
+        cuerpo = new Cola();
         direccion = 'D';
-        longitud = 1;
+
+        // cuerpo inicial (3 segmentos)
+        cuerpo.encolar(3, 5);
+        cuerpo.encolar(4, 5);
+        cuerpo.encolar(5, 5);
     }
 
     public void mover() {
-        if (direccion == 'D') {
-            cabezaX++;
-        } else if (direccion == 'I') {
-            cabezaX--;
-        } else if (direccion == 'U') {
-            cabezaY--;
-        } else if (direccion == 'A') {
-            cabezaY++;
-        }
+        Nodo cabeza = cuerpo.getFin();
+        int x = cabeza.getX();
+        int y = cabeza.getY();
+
+        if (direccion == 'D') x++;
+        else if (direccion == 'I') x--;
+        else if (direccion == 'U') y--;
+        else if (direccion == 'A') y++;
+
+        cuerpo.encolar(x, y);
+        cuerpo.desencolar();
     }
 
     public void crecer() {
-        longitud++;
+        Nodo cabeza = cuerpo.getFin();
+        cuerpo.encolar(cabeza.getX(), cabeza.getY());
     }
 
-    public void cambiarDireccion(char nuevaDireccion) {
-        direccion = nuevaDireccion;
+    public void cambiarDireccion(char d) {
+        direccion = d;
     }
 
-    public String getPosicion() {
-        return "(" + cabezaX + "," + cabezaY + ")";
+    public Nodo getCabeza() {
+        return cuerpo.getFin();
+    }
+
+    public Cola getCuerpo() {
+        return cuerpo;
     }
 
     public boolean colisionPropia() {
+        Nodo cabeza = cuerpo.getFin();
+        Nodo actual = cuerpo.getFrente();
+
+        while (actual != null && actual.getSiguiente() != null) {
+            if (actual.getX() == cabeza.getX() &&
+                actual.getY() == cabeza.getY()) {
+                return true;
+            }
+            actual = actual.getSiguiente();
+        }
         return false;
     }
-
-    public int getX() {
-        return cabezaX;
-    }
-
-    public int getY() {
-        return cabezaY;
-    }
-}
+        }
 

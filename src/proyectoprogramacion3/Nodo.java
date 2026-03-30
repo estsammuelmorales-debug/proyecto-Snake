@@ -1,9 +1,8 @@
 
 package proyectoprogramacion3;
 
-
 public class Nodo {
-    
+
     private int x;
     private int y;
     private Nodo siguiente;
@@ -18,6 +17,8 @@ public class Nodo {
     public int getY() { return y; }
 
     public Nodo getSiguiente() { return siguiente; }
-    public void setSiguiente(Nodo siguiente) { this.siguiente = siguiente; 
+
+    public void setSiguiente(Nodo siguiente) {
+        this.siguiente = siguiente;
     }
 }

@@ -10,7 +10,7 @@ public class proyectoprogramacion3 {
         int opcion = 0;
         while (opcion != 4) {
             mostrarMenu();
-            System.out.print("Elección: ");
+            System.out.print("Eleccion: ");
             try {
                 String linea = br.readLine();
                 if (linea == null || linea.isEmpty()) continue;
@@ -25,7 +25,7 @@ public class proyectoprogramacion3 {
     public static void mostrarMenu() {
         System.out.println("\n--- MENU SNAKE ---");
         System.out.println("1. Nueva Partida");
-        System.out.println("2. Ver Records (Top)");
+        System.out.println("2. Ver Records");
         System.out.println("3. Historial Jugadores");
         System.out.println("4. Salir");
     }
@@ -70,7 +70,7 @@ public class proyectoprogramacion3 {
         }
     }
     
-    
+
     public static void guardarFinJuego(String nombre, int puntos) {
         try {
             PrintWriter pw1 = new PrintWriter(new FileWriter("puntajes.txt", true));

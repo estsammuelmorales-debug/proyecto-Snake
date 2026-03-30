@@ -45,7 +45,7 @@ public class Tablero {
                 Nodo act = serpiente.getCuerpo().getFrente();
                 while (act != null) {
                     if (act.getX() == j && act.getY() == i) {
-                        mapa += "S ";
+                        mapa += "O ";
                         serp = true;
                         break;
                     }

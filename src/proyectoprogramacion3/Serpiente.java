@@ -1,7 +1,6 @@
 
 package proyectoprogramacion3;
 
-
 public class Serpiente {
     private Cola cuerpo;
     private char direccion;
@@ -10,13 +9,13 @@ public class Serpiente {
         cuerpo = new Cola();
         direccion = 'D';
 
-        
         cuerpo.encolar(3, 5);
         cuerpo.encolar(4, 5);
         cuerpo.encolar(5, 5);
     }
 
-    public void mover() {
+    public void mover(boolean crecer) {
+
         Nodo cabeza = cuerpo.getFin();
         int x = cabeza.getX();
         int y = cabeza.getY();
@@ -27,12 +26,10 @@ public class Serpiente {
         else if (direccion == 'A') y++;
 
         cuerpo.encolar(x, y);
-        cuerpo.desencolar();
-    }
 
-    public void crecer() {
-        Nodo cabeza = cuerpo.getFin();
-        cuerpo.encolar(cabeza.getX(), cabeza.getY());
+        if (!crecer) {
+            cuerpo.desencolar();
+        }
     }
 
     public void cambiarDireccion(char d) {
@@ -48,10 +45,11 @@ public class Serpiente {
     }
 
     public boolean colisionPropia() {
+
         Nodo cabeza = cuerpo.getFin();
         Nodo actual = cuerpo.getFrente();
 
-        while (actual != null && actual.getSiguiente() != null) {
+        while (actual != null && actual != cabeza) {
             if (actual.getX() == cabeza.getX() &&
                 actual.getY() == cabeza.getY()) {
                 return true;
@@ -60,5 +58,5 @@ public class Serpiente {
         }
         return false;
     }
-        }
+}
 

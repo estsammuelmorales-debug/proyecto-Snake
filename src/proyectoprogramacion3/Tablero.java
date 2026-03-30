@@ -1,28 +1,33 @@
 
 package proyectoprogramacion3;
 
-
 public class Tablero {
     private int ancho;
     private int alto;
     private Serpiente serpiente;
     private Comida comida;
     private String estado;
+    private int puntaje;
 
     public Tablero(int ancho, int alto) {
         this.ancho = ancho;
         this.alto = alto;
         serpiente = new Serpiente();
         comida = new Comida();
+        comida.generar(ancho, alto, serpiente);
         estado = "Jugando";
+        puntaje = 0;
     }
 
     public void actualizar() {
-        serpiente.mover();
 
-        if (verificarComida()) {
-            serpiente.crecer();
-            comida.generar(ancho, alto);
+        boolean comio = verificarComida();
+
+        serpiente.mover(comio);
+
+        if (comio) {
+            puntaje += 10;
+            comida.generar(ancho, alto, serpiente);
         }
 
         if (verificarColision()) {
@@ -37,6 +42,7 @@ public class Tablero {
     }
 
     public boolean verificarColision() {
+
         Nodo cabeza = serpiente.getCabeza();
 
         if (cabeza.getX() < 0 || cabeza.getX() >= ancho ||
@@ -48,6 +54,7 @@ public class Tablero {
     }
 
     public String dibujar() {
+
         String texto = "";
 
         for (int i = 0; i < alto; i++) {
@@ -57,11 +64,19 @@ public class Tablero {
                 Nodo actual = serpiente.getCuerpo().getFrente();
 
                 while (actual != null) {
+
                     if (actual.getX() == j && actual.getY() == i) {
-                        texto += "S ";
+
+                        if (actual == serpiente.getCabeza()) {
+                            texto += "O ";
+                        } else {
+                            texto += "S ";
+                        }
+
                         esCuerpo = true;
                         break;
                     }
+
                     actual = actual.getSiguiente();
                 }
 
@@ -77,6 +92,8 @@ public class Tablero {
         }
 
         texto += "Estado: " + estado;
+        texto += "\nPuntaje: " + puntaje;
+
         return texto;
     }
 

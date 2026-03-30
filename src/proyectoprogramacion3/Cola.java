@@ -1,7 +1,6 @@
 
 package proyectoprogramacion3;
 
-
 public class Cola {
     private Nodo frente;
     private Nodo fin;
@@ -33,8 +32,11 @@ public class Cola {
         }
     }
 
-    public Nodo getFrente() { return frente; 
+    public Nodo getFrente() {
+        return frente;
     }
-    public Nodo getFin() { return fin; 
+
+    public Nodo getFin() {
+        return fin;
     }
 }

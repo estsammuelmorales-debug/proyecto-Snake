@@ -8,7 +8,7 @@ public class proyectoprogramacion3 {
 
     public static void main(String[] args) throws Exception {
         int opcion = 0;
-        while (opcion != 6) {
+        while (opcion != 4) {
             mostrarMenu();
             System.out.print("Elección: ");
             try {
@@ -25,10 +25,9 @@ public class proyectoprogramacion3 {
     public static void mostrarMenu() {
         System.out.println("\n--- MENU SNAKE ---");
         System.out.println("1. Nueva Partida");
-        System.out.println("2. Cargar Partida");
-        System.out.println("3. Ver Records (Top)");
-        System.out.println("4. Historial Jugadores");
-        System.out.println("6. Salir");
+        System.out.println("2. Ver Records (Top)");
+        System.out.println("3. Historial Jugadores");
+        System.out.println("4. Salir");
     }
 
     public static void ejecutarOpcion(int opcion) throws Exception {
@@ -41,12 +40,9 @@ public class proyectoprogramacion3 {
                 iniciarJuego(juego, nombre);
                 break;
             case 2:
-                cargarPartida();
-                break;
-            case 3:
                 mostrarArchivo("puntajes.txt", "TOP RECORDS");
                 break;
-            case 4:
+            case 3:
                 mostrarArchivo("jugadores.txt", "HISTORIAL");
                 break;
         }
@@ -56,16 +52,12 @@ public class proyectoprogramacion3 {
         while (tablero.getEstado().equals("Jugando")) {
             System.out.println("\n" + tablero.dibujar());
             System.out.println("JUGADOR: " + jugador + " | PUNTOS: " + tablero.getPuntaje());
-            System.out.print("Mover (W/A/S/D) | 'G' Guardar | 'M' Menu: ");
+            System.out.print("Mover (W/A/S/D) | 'M' Menu: ");
             
             String entrada = br.readLine();
             if (entrada != null && !entrada.isEmpty()) {
                 char tecla = entrada.toUpperCase().charAt(0);
                 if (tecla == 'M') break;
-                if (tecla == 'G') {
-                    guardarPartidaActual(tablero, jugador);
-                    continue;
-                }
                 tablero.getSerpiente().cambiarDireccion(tecla);
             }
             tablero.actualizar();
@@ -77,7 +69,8 @@ public class proyectoprogramacion3 {
             guardarFinJuego(jugador, tablero.getPuntaje());
         }
     }
-
+    
+    
     public static void guardarFinJuego(String nombre, int puntos) {
         try {
             PrintWriter pw1 = new PrintWriter(new FileWriter("puntajes.txt", true));
@@ -95,20 +88,5 @@ public class proyectoprogramacion3 {
             String l;
             while ((l = r.readLine()) != null) System.out.println(l);
         } catch (Exception e) { System.out.println("Sin datos."); }
-    }
-
-    public static void guardarPartidaActual(Tablero t, String nombre) {
-        try (PrintWriter out = new PrintWriter(new FileWriter("partida.txt"))) {
-            out.println(nombre);
-            System.out.println("¡Partida Guardada!");
-        } catch (Exception e) { }
-    }
-
-    public static void cargarPartida() throws Exception {
-        try (BufferedReader r = new BufferedReader(new FileReader("partida.txt"))) {
-            String nombre = r.readLine();
-            Tablero t = new Tablero(10, 10);
-            iniciarJuego(t, nombre);
-        } catch (Exception e) { System.out.println("No hay partida."); }
     }
 }

@@ -1,6 +1,7 @@
 package proyectoprogramacion3;
 
-import java.io.*;
+import com.murcia.utils.*;
+import java.io.BufferedReader;
 
 public class proyectoprogramacion3 {
 
